@@ -9,13 +9,32 @@ Import-Module PsFiles
 # Tools
 ##############################
 $env:Path += ";$($env:userprofile)\DropBox\Tools\"
-$env:Path += ";$($env:userprofile)\DropBox\Tools\Vim"
+$env:Path += ";$($env:userprofile)\DropBox\Tools\vim"
 $env:Path += ";$($env:userprofile)\DropBox\Tools\console2"
+
+##############################
+# VIM
+##############################
+$VIMPATH = "$($env:userprofile)\DropBox\Tools\vim\vim.exe"
+Set-Alias vi $VIMPATH
+Set-Alias vim $VIMPATH
+
+# for editing your PowerShell profile
+Function Edit-Profile
+{
+  vim $profile
+}
+
+# for editing your Vim settings
+Function Edit-Vimrc
+{
+  vim $home\_vimrc
+}
 
 ##############################
 # Team Founation Server (TFS)
 ##############################
-$env:Path += ";" + "C:\git-tf\git-tf-1.0.1.20120827"
+#$env:Path += ";" + "C:\git-tf\git-tf-1.0.1.20120827"
 function GoToProjects() { cd ~/projects }
 set-alias gop GoToProjects
 
@@ -25,6 +44,7 @@ set-content Function:\tc "tf checkin `$args"
 
 # Visual Studio VsVars include (run vsvars32
 . (join-path $scriptRoot "/vsvars.ps1")
+set-content Function:\withvs11 "vsvars32 11"
 
 ##############################
 # Powershell
@@ -65,15 +85,15 @@ $a.ForegroundColor = "White"
 ##############################
 # Git
 ##############################
-. (join-path $scriptRoot "/git.ps1")
-set-content Function:\ga "git add -p . `$args"
-set-content Function:\gf "git fetch `$args"
-set-content Function:\gh "git hist"
-set-content Function:\gb "git co -b `$args"
+#. (join-path $scriptRoot "/git.ps1")
+#set-content Function:\ga "git add -p . `$args"
+#set-content Function:\gf "git fetch `$args"
+#set-content Function:\gh "git hist"
+#set-content Function:\gb "git co -b `$args"
 
 # Load posh-git profile
-. (join-path $scriptRoot "/posh-git-profile.ps1")
-. (join-path $scriptRoot "/screen.ps1")
+#. (join-path $scriptRoot "/posh-git-profile.ps1")
+#. (join-path $scriptRoot "/screen.ps1")
 
 
 ##############################
@@ -81,7 +101,7 @@ set-content Function:\gb "git co -b `$args"
 ##############################
 
 # Put globally installed npm packages in PATH
-$env:Path += ";" + $env:USERPROFILE + "\AppData\Roaming\npm\node_modules\"
+#$env:Path += ";" + $env:USERPROFILE + "\AppData\Roaming\npm\node_modules\"
 
 ##############################
 # Servers 
@@ -103,3 +123,6 @@ function servepy() {
 
 . (join-path $scriptRoot "/MountISO.ps1")
 . (join-path $scriptRoot "/account.ps1")
+
+import-module "C:\Geico\MSI\Main\Platform\PoshGeico\Posh-Geico.psm1"
+
